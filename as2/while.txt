@@ -1,0 +1,22 @@
+words		= statement[;]
+bool		= true|false
+space		= [ ]+
+
+start
+	: while_statement
+
+logical_expression
+	: <bool>
+
+statement
+	: "{" <words> "}"
+	| "{" while_statement "}"
+
+S
+	: <space>
+
+
+// ---------- Globals
+
+while_statement
+	: "while" S "(" logical_expression ")" statement

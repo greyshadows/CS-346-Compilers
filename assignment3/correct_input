@@ -1,0 +1,34 @@
+include "folder/filename.jpg";
+int a;
+int b = 0;
+int max(int a, int b, int c, int d) {
+	int max = a;
+	if ( a > b && a > c && a > d) {
+		max = a; 
+	} else {
+		if (b > a && b > c && c > d) {
+			max = b;
+		} else if (c > a && c > b && c > d) {
+			max = c;
+		} else return d;
+	}
+
+	return max;
+}
+
+void main(int args) {
+	int z = 5;
+	int y;
+	print ~ y;
+	input ~ z;
+	bool p = true;
+	if ( a > 5 ) {
+		a = a + 5;
+	}
+	int b = 10;
+	while (b > -10) {
+		positive(b);
+		max(b, a, 3+5, -5 < 6 && (false));
+		b = b - 1;
+	}
+}

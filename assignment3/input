@@ -1,0 +1,14 @@
+int max(int a, int b) {
+	int max = a;
+	if ((a > b) && a < c) {
+		max = a;
+	} else if (a == max) {
+	   max =b ;
+	}
+	return max;
+}
+
+
+void main(int args, int arg2) {
+	int b = 5;
+}

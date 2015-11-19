@@ -1,0 +1,23 @@
+words		= statement[;]
+bool		= true|false
+space		= [ ]+
+
+start
+	: if_statement
+
+logical_expression
+	: <bool>
+
+statement
+	: "{" <words> "}"
+	| "{" if_statement "}"
+
+S
+	: <space>
+
+
+// ---------- Globals
+
+if_statement
+	: "if" S "(" logical_expression ")" statement 
+	| "if" S "(" logical_expression ")" statement "else" statement

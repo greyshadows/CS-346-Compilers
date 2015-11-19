@@ -1,0 +1,38 @@
+re_number     			= 0|[1-9][0-9]+
+re_ident	 			= [a-zA-Z_][a-zA-Z0-9_]+
+re_add					= [+\-]
+re_mul					= [*/]
+s 						= [ \n]+
+
+start
+	: expression
+
+S
+	: <s>
+
+constant
+	: <re_number>
+
+identifier
+	: <re_ident>
+
+expression
+	: additive_expression
+
+additive_expression
+	: multiplicative_expression
+	| multiplicative_expression <re_add> additive_expression
+
+multiplicative_expression
+	: unary_expression
+	| unary_expression <re_mul> additive_expression
+
+
+unary_expression
+	: expression_unit
+	| "-" expression_unit
+
+expression_unit
+	: constant
+	| identifier
+	| "(" expression ")"

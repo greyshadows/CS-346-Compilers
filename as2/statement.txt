@@ -1,0 +1,24 @@
+statements
+	: statement
+	| statement statements
+
+statement
+	:  ";"
+	| expression ";"
+	| variable_declaration
+	| if_statement
+	| while_statement
+	| block
+
+variable_declaration
+	: type identifier ";"
+	| type identifier "=" expression ";"
+
+function_declaration
+	: type identifier "(" ")" block
+	| type identifier "(" argument_list ")" block
+
+if_statement
+	: "if" "(" logical_expression ")" statement 
+	| "if" "(" logical_expression ")" statement "else" statement
+

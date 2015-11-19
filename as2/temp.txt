@@ -1,0 +1,108 @@
+re_number     			= 0|[1-9][0-9]+
+re_bool     	  		= (true|false)
+re_identifier 			= [a-zA-Z_][a-zA-Z0-9_]+
+re_comparision_symbol 	= ([<>]|[<>]=|==|!=)
+re_logical_symbol		= ([&]{2}|[|]{2})
+re_add					= [+\-]
+re_mul					= [*/]
+
+start
+	: declarations type  "main"  "("  argument_list ")"  block 
+	| type  "main"  "("  argument_list ")"  block 
+
+declarations
+	: variable_declaration
+	| function_declaration
+
+type
+	: "int"
+	| "bool"
+
+block
+	: "{" statements "}"
+	| "{" "}"
+
+variable_declaration
+	:  type identifier ";" 
+	|  type identifier "=" all_expression ";" 
+
+function_declaration
+	:  type identifier "("  ")" "{" statements return_statement "}"
+	|  type identifier "("  argument_list ")" "{" statements return_statement "}"
+
+return_statement
+	: "return" all_expression ";"
+
+statements
+	: statement
+	| statement statements
+
+argument_list
+	: argument 
+	| argument ","  argument_list
+
+argument
+	: type  identifier
+
+identifier
+	: <re_identifier>
+
+statement
+	:  ";"
+	| variable_declaration
+	| expression ";"
+	| assignment_expression ";"
+	| if_statement
+	| while_statement
+	| function_call_statement
+	| block
+
+function_call_statement
+	: identifier "(" parameters ")" ";"
+	| identifier "(" ")" ";"
+
+parameters
+	: all_expression
+	| parameters "," all_expression
+
+if_statement
+	: "if"  "(" logical_expression ")" statement 
+	| "if" "(" logical_expression ")" statement "else" statement
+
+while_statement
+	: "while" "(" logical_expression ")" statement
+
+all_expression
+	: expression
+	| logical_expression
+
+expression
+	: additive_expression
+
+assignment_expression
+	: identifier "=" all_expression
+
+expression_unit
+	: constant
+	| identifier
+	| "(" expression ")"
+
+constant
+	: <re_number>
+
+unary_expression
+	: expression_unit
+	| "-" expression_unit
+
+additive_expression
+	: multiplicative_expression
+	| additive_expression <re_add> multiplicative_expression
+
+multiplicative_expression
+	: unary_expression
+	| additive_expression <re_mul> unary_expression
+
+logical_expression
+	: expression_unit <re_comparision_symbol> expression_unit
+	| <re_bool>
+	| logical_expression <re_logical_symbol> expression_unit
